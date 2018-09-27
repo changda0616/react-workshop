@@ -2,16 +2,18 @@ import React, { Component } from 'react';
 import logo from './logo.svg';
 import './App.scss';
 import Checkbox from './component/checkbox';
+import DisplayCheckboxStatus from './component/DisplayCheckboxStatus';
 class App extends Component {
   constructor(props) {
     super(props)
     this.state = {
-       isCheckboxChecked: false
+      numValue: 1,
+      isChecked: false
     }
     this.handleCheckboxChange = this.handleCheckboxChange.bind(this);
   }
   handleCheckboxChange(e){
-    this.setState({...this.state, isCheckboxChecked: e.target.checked});
+    this.setState({isChecked: e.target.checked});
   }
   render() {
     return (
@@ -19,9 +21,10 @@ class App extends Component {
         <header className="App-header">
           <h1 className="App-title">Welcome to React</h1>
           <Checkbox handleChangeFromParent={this.handleCheckboxChange}/>
+          <DisplayCheckboxStatus isCheckedFromSibling={this.state.isChecked}/>
+          <button onClick={()=>{this.setState({numValue: ++this.state.numValue})}}>Add number</button>
         </header>
-        {`${this.state.isCheckboxChecked}`}
-
+        <h1>{this.state.numValue}</h1>
       </div>
     );
   }
